@@ -1,17 +1,25 @@
 from django.db import models
 
+from django.db import models
+
+
 class Order(models.Model):
-    order_id = models.CharField(max_length=20, unique=True)
+    order_id = models.CharField(
+        max_length=20,
+        unique=True
+    )
 
-    client_name = models.CharField(max_length=100)
-    customer_email = models.EmailField(blank=True, null=True)
+    client_name = models.CharField(
+        max_length=100
+    )
 
-    project_name = models.CharField(max_length=200)
-
-    momo_reference = models.CharField(
-        max_length=100,
+    customer_email = models.EmailField(
         blank=True,
         null=True
+    )
+
+    project_name = models.CharField(
+        max_length=200
     )
 
     STATUS_CHOICES = [
@@ -27,7 +35,9 @@ class Order(models.Model):
         default='Pending Payment'
     )
 
-    progress = models.IntegerField(default=0)
+    progress = models.IntegerField(
+        default=0
+    )
 
     delivery_date = models.DateField()
 
@@ -43,8 +53,14 @@ class Order(models.Model):
         null=True
     )
 
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
-        return self.order_id
+        return f"{self.order_id} - {self.client_name}"
 
 class Portfolio(models.Model):
         title = models.CharField(max_length=200)
