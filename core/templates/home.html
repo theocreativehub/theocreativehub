@@ -1,0 +1,668 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo Creative Hub</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f5f5f5;
+            color:#333;
+        }
+
+        nav{
+            background:#111827;
+            padding:20px;
+            text-align:center;
+            position:sticky;
+            top:0;
+        }
+         .logo{
+             width:60px;
+             height:60px;
+             border-radius:50%;
+             object-fit:cover;
+             margin-right:20px;
+}
+
+        nav a{
+            color:white;
+            text-decoration:none;
+            margin:0 15px;
+            font-weight:bold;
+        }
+
+        nav a:hover{
+            color:#10B981;
+        }
+
+        .hero{
+            background:#0F172A;
+            color:white;
+            text-align:center;
+            padding:100px 20px;
+        }
+
+        .hero h1{
+            font-size:60px;
+            margin-bottom:15px;
+        }
+
+        .hero h2{
+            color:#10B981;
+            margin-bottom:20px;
+        }
+
+        .hero p{
+            max-width:700px;
+            margin:auto;
+            line-height:1.8;
+            margin-bottom:20px;
+        }
+
+        .btn{
+            background:#10B981;
+            color:white;
+            text-decoration:none;
+            padding:15px 25px;
+            border-radius:5px;
+            display:inline-block;
+            margin:10px;
+        }
+
+        section{
+            padding:80px 20px;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .services{
+            text-align:center;
+        }
+
+        .service-card{
+            background:white;
+            padding:20px;
+            margin:20px auto;
+            max-width:600px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .about{
+            background:#111827;
+            color:white;
+            text-align:center;
+        }
+
+        .about p{
+            max-width:900px;
+            margin:20px auto;
+            line-height:1.8;
+        }
+
+        .portfolio{
+            text-align:center;
+        }
+
+        .portfolio-grid{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+
+        .portfolio-card{
+            background:white;
+            width:250px;
+            margin:15px;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .pricing{
+            background:white;
+        }
+
+        .contact{
+            background:#111827;
+            color:white;
+            text-align:center;
+        }
+
+        .contact p{
+            margin:10px 0;
+        }
+
+        footer{
+            background:#000;
+            color:white;
+            text-align:center;
+            padding:40px;
+        }
+
+        footer p{
+            margin:10px 0;
+        }
+#portfolio{
+    padding:80px 20px;
+    background:#f8f9fa;
+    text-align:center;
+}
+
+#portfolio h2{
+    font-size:40px;
+    margin-bottom:10px;
+    color:#111827;
+}
+
+#portfolio p{
+    color:#666;
+    margin-bottom:40px;
+}
+
+.portfolio-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+    max-width:1400px;
+    margin:auto;
+}
+
+.portfolio-item{
+    overflow:hidden;
+    border-radius:15px;
+    background:white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    transition:0.4s;
+}
+
+.portfolio-item:hover{
+    transform:translateY(-10px);
+}
+
+.portfolio-item img{
+    width:100%;
+    display:block;
+}#services{
+    padding:80px 20px;
+    background:#ffffff;
+    text-align:center;
+}
+
+#services h2{
+    font-size:40px;
+    margin-bottom:40px;
+    color:#111827;
+}
+
+.services-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.service-box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.service-box:hover{
+    transform:translateY(-10px);
+}
+
+.service-box h3{
+    margin-bottom:15px;
+    color:#f39c12;
+}
+
+.service-box p{
+    color:#555;
+    line-height:1.6;
+}
+    </style>
+<style>
+
+/* all your existing CSS is here */
+
+.whatsapp-float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    text-align:center;
+    font-size:30px;
+    line-height:60px;
+    text-decoration:none;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    z-index:1000;
+    transition:0.3s;
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.1);
+}
+#testimonials{
+    padding:80px 20px;
+    background:#f8f9fa;
+    text-align:center;
+}
+
+.testimonials-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.testimonial-card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.testimonial-card p{
+    margin-bottom:15px;
+    line-height:1.7;
+}
+#contact-form{
+    padding:80px 20px;
+    background:#ffffff;
+    text-align:center;
+}
+
+#contact-form form{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+#contact-form input,
+#contact-form select,
+#contact-form textarea{
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+}
+
+#contact-form textarea{
+    min-height:150px;
+}
+
+#contact-form button{
+    background:#f39c12;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+#contact-form button:hover{
+    opacity:0.9;
+}
+#stats{
+    padding:80px 20px;
+    background:#111827;
+    color:white;
+    text-align:center;
+}
+
+.stats-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.stat-box{
+    padding:30px;
+}
+
+.stat-box h1{
+    color:#f39c12;
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.stat-box p{
+    font-size:18px;
+}
+</style>
+</a>
+<body>
+
+<nav>
+    <img src="{% static 'images/logo.jpg' %}" alt="Theo Creative Hub Logo" class="logo">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+    <a href="/tracking/">Track Order</a>
+</nav>
+
+<section class="hero" id="home">
+
+    <h1>Theo Creative Hub</h1>
+
+    <h2>You Dream It, We Design It</h2>
+
+    <p>
+        Transforming ideas into stunning visual experiences through
+        graphic design, branding, photography and creative solutions.
+    </p>
+
+    <a href="#portfolio" class="btn">View Portfolio</a>
+
+    <a href="https://wa.me/233203027196" class="btn">
+        Book on WhatsApp
+    </a>
+
+</section>
+
+<section class="services" id="services">
+<h2>Our Services</h2>
+
+    <div class="services-container">
+
+        <div class="service-box">
+            <h3>Flyer Design</h3>
+            <p>Professional flyers for businesses, events and promotions.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Business Cards</h3>
+            <p>Modern and elegant business card designs.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Social Media Design</h3>
+            <p>Creative posts for Instagram, Facebook and WhatsApp.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Political Campaign Design</h3>
+            <p>Posters, banners and campaign branding.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Church Design</h3>
+            <p>Church programs, conferences and event graphics.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Wedding & Ceremony Design</h3>
+            <p>Elegant invitation and ceremony designs.</p>
+        </div>
+
+        <div class="service-box">
+            <h3>Logo & Branding</h3>
+            <p>Professional logos and complete brand identity.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="about">
+
+    <h2>Why Choose Theo Creative Hub?</h2>
+
+    <p>
+        We are passionate about transforming ideas into powerful visual experiences.
+        From branding and graphic design to photography and digital content,
+        we help businesses stand out and connect with their audience.
+    </p>
+<section id="services">
+
+
+<section id="stats">
+
+    <h2>Theo Creative Hub in Numbers</h2>
+
+    <div class="stats-container">
+
+        <div class="stat-box">
+            <h1>200+</h1>
+            <p>Designs Completed</p>
+        </div>
+
+        <div class="stat-box">
+            <h1>100+</h1>
+            <p>Happy Clients</p>
+        </div>
+
+        <div class="stat-box">
+            <h1>5+</h1>
+            <p>Years Experience</p>
+        </div>
+
+        <div class="stat-box">
+            <h1>24/7</h1>
+            <p>Client Support</p>
+        </div>
+
+    </div>
+
+</section>
+</section>
+<section id="portfolio">
+
+    <h2>Our Portfolio</h2>
+
+    <p>Some of our recent creative works.</p>
+
+    <div class="portfolio-grid">
+
+        {% for portfolio in portfolios %}
+        <div class="portfolio-item">
+            <img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}">
+            <h3>{{ portfolio.title }}</h3>
+            <p>{{ portfolio.category }}</p>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+</section>
+
+<section class="pricing" id="pricing">
+
+    <h2>Design Price List</h2>
+
+    <div class="portfolio-grid">
+
+        <div class="portfolio-card"><h3>Business Card</h3><h2>GH₵150</h2></div>
+        <div class="portfolio-card"><h3>Certificate Design</h3><h2>GH₵150</h2></div>
+        <div class="portfolio-card"><h3>Educational Design</h3><h2>GH₵100</h2></div>
+        <div class="portfolio-card"><h3>Label Design</h3><h2>GH₵150</h2></div>
+        <div class="portfolio-card"><h3>Citation Design</h3><h2>Size Dependent</h2></div>
+        <div class="portfolio-card"><h3>Business Design</h3><h2>GH₵200</h2></div>
+        <div class="portfolio-card"><h3>Political Design</h3><h2>GH₵150</h2></div>
+        <div class="portfolio-card"><h3>Church Design</h3><h2>GH₵150</h2></div>
+        <div class="portfolio-card"><h3>Birthday Design</h3><h2>GH₵100</h2></div>
+        <div class="portfolio-card"><h3>Naming Ceremony</h3><h2>GH₵100</h2></div>
+        <div class="portfolio-card"><h3>Wedding Ceremony</h3><h2>GH₵150</h2></div>
+        <div class="portfolio-card"><h3>Funeral Ceremony</h3><h2>GH₵200</h2></div>
+        <div class="portfolio-card"><h3>Event Design</h3><h2>GH₵100</h2></div>
+
+    </div>
+
+</section>
+
+<section class="about">
+
+    <h2>Project Policy</h2>
+
+    <p>
+        A minimum of 70% of the total project cost, or full payment,
+        is required before we commence any project.
+    </p>
+
+    <p>
+        No refunds will be issued once payment has been made.
+    </p>
+
+    <p>
+        We provide only one sample for your initial design.
+        Additional samples attract extra charges.
+    </p>
+
+    <p>
+        Clients are entitled to a maximum of three rounds of revisions.
+    </p>
+
+    <p>
+        Additional charges may apply after the revision limit
+        or after 48 hours from delivery.
+    </p>
+
+    <p>
+        Kindly provide all required information before project commencement.
+    </p>
+
+</section>
+<section id="testimonials">
+
+    <h2>What Clients Say</h2>
+
+    <div class="testimonials-container">
+
+        <div class="testimonial-card">
+            <p>
+                "Excellent work! My flyer looked professional and attracted many customers."
+            </p>
+            <h4>⭐⭐⭐⭐⭐</h4>
+            <strong>Business Client</strong>
+        </div>
+
+        <div class="testimonial-card">
+            <p>
+                "Fast delivery and very creative designs. Highly recommended."
+            </p>
+            <h4>⭐⭐⭐⭐⭐</h4>
+            <strong>Event Organizer</strong>
+        </div>
+
+        <div class="testimonial-card">
+            <p>
+                "Theo Creative Hub transformed my brand identity completely."
+            </p>
+            <h4>⭐⭐⭐⭐⭐</h4>
+            <strong>Brand Owner</strong>
+
+        </div>
+
+    </div>
+
+</section>
+<section id="contact-form">
+
+    <h2>Request a Project</h2>
+
+    <form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="client_name" placeholder="Full Name" required>
+
+    <input type="email" name="email" placeholder="Email Address" required>
+
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+
+    <select name="service" required>
+        <option value="">Select Service</option>
+        <option>Flyer Design</option>
+        <option>Business Card</option>
+        <option>Logo Design</option>
+        <option>Branding</option>
+        <option>Social Media Design</option>
+        <option>Website Design</option>
+    </select>
+
+    <input type="text" name="budget" placeholder="Budget">
+
+    <textarea name="details" placeholder="Tell us about your project"></textarea>
+
+    <button type="submit">Submit Request</button>
+        {% if success %}
+<div style="
+background:#d4edda;
+color:#155724;
+padding:15px;
+margin-bottom:20px;
+border-radius:8px;
+">
+    {{ success }}
+</div>
+{% endif %}
+</form>
+
+</section>
+<section class="contact" id="contact">
+
+    <h2>Contact Theo Creative Hub</h2>
+
+    <p>📞 Phone: 0203027196</p>
+
+    <p>📧 Email: theophilusanimbioh@gmail.com</p>
+
+    <p>📷 Instagram: @mr_animbioh</p>
+
+    <p>
+        Ready to bring your ideas to life?
+        Contact us today and let's create something amazing.
+    </p>
+
+    <a href="https://wa.me/233203027196" class="btn">
+        Chat on WhatsApp
+    </a>
+
+</section>
+
+<footer>
+
+    <h3>Theo Creative Hub</h3>
+
+    <p>You Dream It, We Design It</p>
+
+    <p>© 2026 All Rights Reserved</p>
+
+</footer>
+
+<a href="https://wa.me/233203027196" class="whatsapp-float">
+    💬
+</a>
+</body>
+</html>
+

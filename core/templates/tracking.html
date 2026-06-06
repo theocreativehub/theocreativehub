@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Order - Theo Creative Hub</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+            padding:0;
+        }
+
+        .container{
+            width:80%;
+            max-width:700px;
+            margin:50px auto;
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+            text-align:center;
+        }
+
+        h1{
+            margin-bottom:10px;
+        }
+
+        input{
+            width:90%;
+            padding:15px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            margin-bottom:20px;
+        }
+
+        button{
+            background:#f0a500;
+            color:white;
+            border:none;
+            padding:15px 30px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#d98f00;
+        }
+
+        .result-box{
+            margin-top:30px;
+            text-align:left;
+            background:#fafafa;
+            padding:20px;
+            border-radius:10px;
+        }
+
+        .error{
+            color:red;
+            margin-top:20px;
+        }
+        .tracking-card{
+    max-width:700px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.tracking-card h2{
+    margin-bottom:20px;
+}
+
+.status{
+    background:#f4b400;
+    color:white;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:14px;
+}
+
+.progress-bar{
+    width:100%;
+    height:20px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progress-fill{
+    height:100%;
+    background:#28a745;
+    border-radius:20px;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Track Your Project</h1>
+
+    <p>Enter your Order ID below.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="order_id"
+            placeholder="Enter Order ID"
+            required
+        >
+
+        <br>
+
+        <button type="submit">Track Order</button>
+    </form>
+
+  {% if order %}
+
+<div class="tracking-card">
+
+    <h2>{{ order.project_name }}</h2>
+
+    <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+
+    <p><strong>Client:</strong> {{ order.client_name }}</p>
+
+   <p><strong>Status:</strong>
+
+{% if order.status == "Pending" %}
+<span style="background:#ff9800;color:white;padding:5px 12px;border-radius:20px;">
+    Pending
+</span>
+
+{% elif order.status == "In Progress" %}
+<span style="background:#2196f3;color:white;padding:5px 12px;border-radius:20px;">
+    In Progress
+</span>
+
+{% elif order.status == "Completed" %}
+<span style="background:#4caf50;color:white;padding:5px 12px;border-radius:20px;">
+    Completed
+</span>
+
+{% endif %}
+
+</p>
+
+   <p><strong>Progress:</strong> {{ order.progress }}%</p>
+
+<div style="
+width:100%;
+height:25px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+">
+
+<div style="
+width:{{ order.progress }}%;
+height:100%;
+background:#4caf50;
+text-align:center;
+color:white;
+font-weight:bold;
+line-height:25px;
+transition:1s;
+">
+
+{{ order.progress }}%
+
+</div>
+
+</div>
+    </div><div style="
+max-width:800px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,0.15);
+">
+
+    <p><strong>Expected Delivery:</strong>
+        {{ order.delivery_date }}
+    </p>
+    {% if order.preview_image %}
+<hr>
+
+<h3>Project Preview</h3>
+
+<img src="{{ order.preview_image.url }}"
+     alt="Preview"
+     style="
+     width:100%;
+     max-width:500px;
+     border-radius:10px;
+     margin-top:15px;
+     ">
+{% endif %}
+    {% if order.final_file %}
+
+<hr>
+
+<h3>Final Design</h3>
+
+<a href="{{ order.final_file.url }}"
+   download
+   style="
+   display:inline-block;
+   background:#28a745;
+   color:white;
+   padding:12px 20px;
+   text-decoration:none;
+   border-radius:8px;
+   margin-top:10px;
+   ">
+   Download Final Design
+</a>
+
+{% endif %}
+    {% if order %}
+
+<hr>
+
+<h3>Leave Feedback</h3>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="hidden"
+           name="hidden_order_id"
+           value="{{ order.order_id }}">
+
+    <textarea
+        name="comment"
+        rows="4"
+        placeholder="Leave revision requests or feedback..."
+        required></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Submit Feedback
+    </button>
+
+</form>
+    <h3>Client Feedback</h3>
+
+{% for comment in order.comments.all %}
+
+<div style="
+padding:15px;
+margin-bottom:10px;
+background:#f5f5f5;
+border-radius:10px;
+">
+
+<p>{{ comment.message }}</p>
+
+<small>{{ comment.created_at }}</small>
+
+</div>
+
+{% empty %}
+
+<p>No feedback yet.</p>
+
+{% endfor %}
+    <h3>Admin Replies</h3>
+
+{% for reply in order.replies.all %}
+
+<div style="
+background:#e8f5e9;
+padding:15px;
+margin-bottom:10px;
+border-radius:10px;
+">
+
+<strong>Theo Creative Hub:</strong>
+
+<p>{{ reply.message }}</p>
+
+</div>
+
+{% empty %}
+
+<p>No replies yet.</p>
+
+{% endfor %}
+
+{% endif %}
+
+</div>
+
+{% endif %}
+</div>
+
+</body>
+</html>
