@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: theocreativehub
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn theo_creative_hub.wsgi:application"
