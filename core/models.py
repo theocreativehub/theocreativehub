@@ -2,19 +2,29 @@ from django.db import models
 
 class Order(models.Model):
     order_id = models.CharField(max_length=20, unique=True)
+
     client_name = models.CharField(max_length=100)
+    customer_email = models.EmailField(blank=True, null=True)
+
     project_name = models.CharField(max_length=200)
 
+    momo_reference = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
     STATUS_CHOICES = [
-        ('Pending', 'Pending'),
+        ('Pending Payment', 'Pending Payment'),
         ('In Progress', 'In Progress'),
+        ('Ready For Download', 'Ready For Download'),
         ('Completed', 'Completed'),
     ]
 
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='Pending'
+        default='Pending Payment'
     )
 
     progress = models.IntegerField(default=0)
@@ -26,6 +36,7 @@ class Order(models.Model):
         blank=True,
         null=True
     )
+
     final_file = models.FileField(
         upload_to='deliveries/',
         blank=True,
