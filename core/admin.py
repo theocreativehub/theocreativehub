@@ -1,12 +1,6 @@
 from django.contrib import admin
 from .models import Order, Portfolio, Comment, AdminReply
 
-admin.site.register(Order)
-admin.site.register(Portfolio)
-admin.site.register(Comment)
-admin.site.register(AdminReply)
-from django.contrib import admin
-from .models import Order
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -25,3 +19,8 @@ class OrderAdmin(admin.ModelAdmin):
         'client_name',
         'project_name',
     )
+
+
+admin.site.register(Portfolio)
+admin.site.register(Comment)
+admin.site.register(AdminReply)
