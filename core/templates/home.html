@@ -615,15 +615,36 @@
     <textarea name="details" placeholder="Tell us about your project"></textarea>
 
     <button type="submit">Submit Request</button>
-        {% if success %}
+       {% if success %}
 <div style="
 background:#d4edda;
 color:#155724;
-padding:15px;
-margin-bottom:20px;
+padding:20px;
+margin-top:20px;
 border-radius:8px;
+border:1px solid #c3e6cb;
 ">
-    {{ success }}
+
+    <h3>✅ Order Submitted Successfully!</h3>
+
+    <p><strong>Order ID:</strong> {{ order_id }}</p>
+
+    <hr>
+
+    <h4>Payment Instructions</h4>
+
+    <p><strong>MoMo Number:</strong> 0545596799</p>
+
+    <p><strong>Account Name:</strong> THEOPHILUS ANIM BIOH</p>
+
+    <p><strong>Reference:</strong> {{ order_id }}</p>
+
+    <p>
+        After making payment, send the payment screenshot and your
+        Order ID to WhatsApp:
+        <strong>0203027196</strong>
+    </p>
+
 </div>
 {% endif %}
 </form>

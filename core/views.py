@@ -4,20 +4,14 @@ from datetime import date
 
 
 def home(request):
-
     if request.method == "POST":
-
         client_name = request.POST.get("client_name")
         service = request.POST.get("service")
 
-        order_count = Order.objects.count() + 1
-        order_id = f"THC-{order_count:04d}"
-
-        Order.objects.create(
-            order_id=order_id,
+        order = Order.objects.create(
             client_name=client_name,
             project_name=service,
-            status="Pending",
+            status="Pending Payment",
             progress=0,
             delivery_date=date.today()
         )
@@ -25,7 +19,8 @@ def home(request):
         portfolios = Portfolio.objects.all()
 
         return render(request, "home.html", {
-            "success": f"Order Submitted successfully! Your Order ID is {order_id}",
+            "success": True,
+            "order_id": order.order_id,
             "portfolios": portfolios
         })
 
