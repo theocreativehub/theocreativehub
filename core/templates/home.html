@@ -616,37 +616,84 @@
 
     <button type="submit">Submit Request</button>
        {% if success %}
+
+
+{% if success %}
+
 <div style="
-background:#d4edda;
-color:#155724;
+background:#f8f9fa;
 padding:20px;
+border-radius:10px;
 margin-top:20px;
-border-radius:8px;
-border:1px solid #c3e6cb;
+border-left:5px solid #28a745;
 ">
 
-    <h3>✅ Order Submitted Successfully!</h3>
+<h2 style="color:#28a745;">
+🎉 Order Submitted Successfully!
+</h2>
 
-    <p><strong>Order ID:</strong> {{ order_id }}</p>
+<p>
+<strong>Your Order ID:</strong>
+<span style="color:red; font-size:20px;">
+{{ order_id }}
+</span>
+</p>
 
-    <hr>
+<p>
+Please save this Order ID carefully. It will be used to track your order and must be used as your payment reference.
+</p>
 
-    <h4>Payment Instructions</h4>
+<hr>
 
-    <p><strong>MoMo Number:</strong> 0545596799</p>
+<h3>PAYMENT DETAILS</h3>
 
-    <p><strong>Account Name:</strong> THEOPHILUS ANIM BIOH</p>
+<p>
+<strong>MoMo Number:</strong> 0545596799
+</p>
 
-    <p><strong>Reference:</strong> {{ order_id }}</p>
+<p>
+<strong>MoMo Name:</strong> THEOPHILUS ANIM BIOH
+</p>
 
-    <p>
-        After making payment, send the payment screenshot and your
-        Order ID to WhatsApp:
-        <strong>0203027196</strong>
-    </p>
+<p style="color:red;">
+<strong>IMPORTANT:</strong>
+Use <strong>{{ order_id }}</strong> as your payment reference when making payment.
+</p>
+
+<p>
+After payment, send the following details via WhatsApp:
+</p>
+
+<ul>
+    <li>Full Name</li>
+    <li>Order ID</li>
+    <li>Amount Paid</li>
+    <li>MoMo Transaction ID / Reference Number</li>
+</ul>
+
+<p>
+<strong>WhatsApp Number:</strong> 0203027196
+</p>
+
+<p>
+Your order will only be approved and processed after payment has been verified.
+</p>
+
+<p>
+Once payment is confirmed, your order status will be updated and work on your project will begin.
+</p>
+
+<p>
+Thank you for choosing <strong>Theo Creative Hub</strong>.
+</p>
 
 </div>
+
 {% endif %}
+</div>
+
+{% endif %}
+
 </form>
 
 </section>
