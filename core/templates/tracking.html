@@ -210,8 +210,7 @@ box-shadow:0 4px 15px rgba(0,0,0,0.15);
 
 <h3>Final Design</h3>
 
-<a href="{{ order.final_file.url }}"
-   download
+<a href="{% url 'download_file' order.order_id %}"
    style="
    display:inline-block;
    background:#28a745;

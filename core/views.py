@@ -62,3 +62,33 @@ def tracking(request):
             "order": order,
             "error": error
 })
+from django.shortcuts import redirect
+
+def download_file(request, order_id):
+    order = Order.objects.get(order_id=order_id)
+
+    if order.final_file:
+        return redirect(order.final_file.url)
+
+    return redirect('tracking')
+from django.http import FileResponse, Http404
+from .models import Order
+import os
+
+
+def download_file(request, order_id):
+    try:
+        order = Order.objects.get(order_id=order_id)
+
+        if not order.final_file:
+            raise Http404("File not found")
+
+        response = FileResponse(
+            order.final_file.open('rb'),
+            as_attachment=True
+        )
+
+        return response
+
+    except Order.DoesNotExist:
+        raise Http404("Order not found")
