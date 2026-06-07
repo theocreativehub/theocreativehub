@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Order, Portfolio, Comment
 from datetime import date
 
@@ -30,65 +30,54 @@ def home(request):
         "portfolios": portfolios
     })
 
+
 def tracking(request):
 
-        order = None
-        error = None
+    order = None
+    error = None
 
-        if request.method == "POST":
+    if request.method == "POST":
 
-            if "order_id" in request.POST:
+        if "order_id" in request.POST:
 
-                order_id = request.POST.get("order_id")
+            order_id = request.POST.get("order_id")
 
-                try:
-                    order = Order.objects.get(order_id=order_id)
-
-                except Order.DoesNotExist:
-                    error = "Order not found"
-
-            elif "comment" in request.POST:
-
-                order_id = request.POST.get("hidden_order_id")
-
+            try:
                 order = Order.objects.get(order_id=order_id)
 
-                Comment.objects.create(
-                    order=order,
-                    message=request.POST.get("comment")
-                )
+            except Order.DoesNotExist:
+                error = "Order not found"
 
-        return render(request, "tracking.html", {
-            "order": order,
-            "error": error
-})
-from django.shortcuts import redirect
+        elif "comment" in request.POST:
+
+            order_id = request.POST.get("hidden_order_id")
+
+            order = Order.objects.get(order_id=order_id)
+
+            Comment.objects.create(
+                order=order,
+                message=request.POST.get("comment")
+            )
+
+    return render(request, "tracking.html", {
+        "order": order,
+        "error": error
+    })
+
 
 def download_file(request, order_id):
-    order = Order.objects.get(order_id=order_id)
+    try:
+        order = Order.objects.get(order_id=order_id)
 
-    if order.final_file:
-        return redirect(order.final_file.url)
+        if not order.final_file:
+            return redirect('tracking')
 
-    return redirect('tracking')
-from django.http import FileResponse, Http404
-from .models import Order
-import os
+        url = order.final_file.url.replace(
+            "/upload/",
+            "/upload/fl_attachment/"
+        )
 
-
-from django.shortcuts import redirect
-from .models import Order
-
-def download_file(request, order_id):
-    order = Order.objects.get(order_id=order_id)
-
-    url = order.final_file.url.replace(
-        "/upload/",
-        "/upload/fl_attachment/"
-    )
-
-    return redirect(url)
-        return response
+        return redirect(url)
 
     except Order.DoesNotExist:
-        raise Http404("Order not found")
+        return redirect('tracking')
