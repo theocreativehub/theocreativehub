@@ -88,3 +88,7 @@ def download_file(request, order_id):
     )
 
     return redirect(url)
+        return response
+
+    except Order.DoesNotExist:
+        raise Http404("Order not found")
