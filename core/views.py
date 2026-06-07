@@ -76,19 +76,15 @@ from .models import Order
 import os
 
 
+from django.shortcuts import redirect
+from .models import Order
+
 def download_file(request, order_id):
-    try:
-        order = Order.objects.get(order_id=order_id)
+    order = Order.objects.get(order_id=order_id)
 
-        if not order.final_file:
-            raise Http404("File not found")
+    url = order.final_file.url.replace(
+        "/upload/",
+        "/upload/fl_attachment/"
+    )
 
-        response = FileResponse(
-            order.final_file.open('rb'),
-            as_attachment=True
-        )
-
-        return response
-
-    except Order.DoesNotExist:
-        raise Http404("Order not found")
+    return redirect(url)
